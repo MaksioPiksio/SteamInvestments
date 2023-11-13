@@ -6,6 +6,7 @@ import Row from "./components/Row";
 let flag = false;
 function App() {
     const [prices, setPrices] = useState([]);
+    const [selectedHeader, setSelectedHeader] = useState("");
     const [profit, setProfit] = useState(0);
     const [totalValue, setTotalValue] = useState(0);
 
@@ -44,12 +45,21 @@ function App() {
 
     const handleSort = (name) => {
         const arr = [...prices];
+
         if (typeof arr[0][name] === "number")
-            arr.sort((a, b) => a[name] - b[name]).reverse;
+            arr.sort((a, b) => a[name] - b[name]);
+
         if (typeof arr[0][name] === "string")
             arr.sort((a, b) =>
                 a[name] === b[name] ? 0 : a[name] < b[name] ? -1 : 1
             );
+
+        setSelectedHeader(name);
+
+        if (selectedHeader === name) {
+            arr.reverse();
+            setSelectedHeader(name + 1);
+        }
 
         setPrices(arr);
     };
@@ -69,8 +79,20 @@ function App() {
                                         color={"white"}
                                         key={idx}
                                         onClick={() => handleSort(name)}
-                                        className="cursor-pointer hover:bg-zinc-900 transition duration-200">
-                                        {name}
+                                        className={`cursor-pointer hover:bg-zinc-900 transition duration-200 ${
+                                            selectedHeader == name &&
+                                            "bg-zinc-700"
+                                        }`}>
+                                        <div className="flex content-center justify-between">
+                                            {name}
+                                            {selectedHeader == name ? (
+                                                <i class="fa-solid fa-arrow-down-short-wide"></i>
+                                            ) : (
+                                                selectedHeader == name + 1 && (
+                                                    <i class="fa-solid fa-arrow-up-wide-short"></i>
+                                                )
+                                            )}
+                                        </div>
                                     </Th>
                                 ))}
                             </Tr>
