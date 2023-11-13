@@ -81,8 +81,10 @@ function App() {
                                         key={idx}
                                         onClick={() => handleSort(name)}
                                         className={`cursor-pointer hover:bg-zinc-900 transition duration-200 ${
-                                            selectedHeader == name &&
-                                            "bg-zinc-700"
+                                            selectedHeader == name
+                                                ? "bg-zinc-700"
+                                                : selectedHeader == name + 1 &&
+                                                  "bg-zinc-700"
                                         }`}>
                                         <div className="flex items-center justify-between">
                                             {name}
