@@ -3,3 +3,9 @@ export const buyPriceArray = [5.61, 5.85, 7.85, 3.19, 3.65, 3.43, 3.76, 4.27, 3.
 export const numberOfSkins = [1, 2, 3, 4, 1, 2, 2, 2, 2, 9, 10, 8, 10, 1, 6, 4, 1, 26, 30,]; /*prettier-ignore */
 
 export const headers = ["icon", "name", "buyPrice", "buffPrice", "steamPrice", "quantity", "profit"]; /*prettier-ignore */
+export const currencyArray = [" RMB", " USD", " PLN"];
+export const currencyPriceObject = {
+    " RMB": 1,
+    " USD": 0.15,
+    " PLN": 0.58,
+};

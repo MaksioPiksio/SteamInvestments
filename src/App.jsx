@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { Table, Thead, Tbody, Tr, Th, Td, TableContainer,} from "@chakra-ui/react"; /*prettier-ignore */
-import { buyPriceArray, numberOfSkins, skins, headers } from "./assets";
+import { Table, Thead, Tbody, Tr, Th, Td, TableContainer, Button} from "@chakra-ui/react"; /*prettier-ignore */
+import { buyPriceArray, numberOfSkins, skins, headers,currencyArray, currencyPriceObject } from "./assets"; /*prettier-ignore */
 import Row from "./components/Row";
 
 let flag = false;
@@ -9,6 +9,7 @@ function App() {
     const [selectedHeader, setSelectedHeader] = useState("");
     const [profit, setProfit] = useState(0);
     const [totalValue, setTotalValue] = useState(0);
+    const [currency, setCurrency] = useState(" RMB");
 
     const addSkins = (skin, i) => {
         if (prices.length === skins.length) return;
@@ -65,11 +66,27 @@ function App() {
         setPrices(arr);
     };
 
+    const handleChangeCurrency = (name) => {
+        setCurrency(name);
+    };
+
     const handleSetProfit = (n) => setProfit((profit) => (parseFloat(profit) + parseFloat(n)).toFixed(2)); /*prettier-ignore */
     const handleSetTotalValue = (n) => setTotalValue((totalValue) => (parseFloat(totalValue) + parseFloat(n)).toFixed(2)); /*prettier-ignore */
 
     return (
         <>
+            <div className=" w-screen flex justify-center m-4 gap-4">
+                {currencyArray.map((name, idx) => (
+                    <button
+                        onClick={() => handleChangeCurrency(name)}
+                        className={`text-white ${
+                            name == currency && "bg-zinc-900"
+                        } py-2 px-4 rounded text-center cursor-pointer`}
+                        key={idx}>
+                        {name}
+                    </button>
+                ))}
+            </div>
             <div className="flex justify-center text-white">
                 <TableContainer>
                     <Table className="max-w-lg">
@@ -102,7 +119,12 @@ function App() {
                         </Thead>
                         <Tbody>
                             {prices.map((price, idx) => (
-                                <Row price={price} idx={idx} key={idx} />
+                                <Row
+                                    currency={currency}
+                                    price={price}
+                                    idx={idx}
+                                    key={idx}
+                                />
                             ))}
                         </Tbody>
                     </Table>
@@ -110,19 +132,37 @@ function App() {
                         {profit != undefined ? (
                             profit > 0 ? (
                                 <span className="text-green-500">
-                                    Profit: {profit}¥
+                                    Profit:{" "}
+                                    {(
+                                        profit * currencyPriceObject[currency]
+                                    ).toFixed(2)}
+                                    {currency}
                                 </span>
                             ) : (
                                 <span className="text-red-500">
-                                    Profit: {profit}¥
+                                    Profit:{" "}
+                                    {(
+                                        profit * currencyPriceObject[currency]
+                                    ).toFixed(2)}
+                                    {currency}
                                 </span>
                             )
                         ) : (
                             <span>Loading...</span>
                         )}
-                        ( {((profit / totalValue) * 100).toFixed(2)}% )
+                        ({" "}
+                        {(
+                            (profit / totalValue) *
+                            100 *
+                            currencyPriceObject[currency]
+                        ).toFixed(2)}
+                        % )
                         <br />
-                        Total Value: {totalValue}¥
+                        Total Value:{" "}
+                        {(totalValue * currencyPriceObject[currency]).toFixed(
+                            2
+                        )}
+                        {currency}
                     </h1>
                 </TableContainer>
             </div>

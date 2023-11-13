@@ -1,7 +1,8 @@
 import React from "react";
 import { Tr, Td } from "@chakra-ui/react";
+import { currencyPriceObject } from "../assets";
 
-function Row({ price, idx }) {
+function Row({ currency, price, idx }) {
     return (
         <Tr
             className={`${
@@ -12,23 +13,42 @@ function Row({ price, idx }) {
             </Td>
             <Td>{price.name}</Td>
             <Td>
-                {price.buyPrice}¥/
-                {(price.buyPrice * price.quantity).toFixed(2)}¥
+                {(price.buyPrice * currencyPriceObject[currency]).toFixed(2) +
+                    currency}
+                /
+                {(
+                    price.buyPrice *
+                    price.quantity *
+                    currencyPriceObject[currency]
+                ).toFixed(2) + currency}
             </Td>
             <Td>
-                {price.buffPrice}¥/
-                {(price.buffPrice * price.quantity).toFixed(2)}¥
+                {(price.buffPrice * currencyPriceObject[currency]).toFixed(2) +
+                    currency}
+                /
+                {(
+                    price.buffPrice *
+                    price.quantity *
+                    currencyPriceObject[currency]
+                ).toFixed(2) + currency}
             </Td>
             <Td>
-                {price.steamPrice}¥/
-                {(price.steamPrice * price.quantity).toFixed(2)}¥
+                {(price.steamPrice * currencyPriceObject[currency]).toFixed(2) +
+                    currency}
+                /
+                {(
+                    price.steamPrice *
+                    price.quantity *
+                    currencyPriceObject[currency]
+                ).toFixed(2) + currency}
             </Td>
             <Td>{price.quantity}</Td>
             <Td
                 className={`${
                     price.profit > 0 ? "text-green-500" : "text-red-500"
                 }`}>
-                {price.profit.toFixed(2)}
+                {(price.profit * currencyPriceObject[currency]).toFixed(2) +
+                    currency}
             </Td>
         </Tr>
     );
