@@ -5,8 +5,8 @@ function Row({ price, idx }) {
     return (
         <Tr
             className={`${
-                idx % 2 === 0 && "bg-slate-800"
-            } border-2 border-slate-600`}>
+                idx % 2 === 0 && "bg-zinc-900"
+            } border-2 border-zinc-900`}>
             <Td>
                 <img src={price.icon} className="scale-150"></img>
             </Td>

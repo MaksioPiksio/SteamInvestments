@@ -63,12 +63,13 @@ function App() {
                 <TableContainer>
                     <Table className="max-w-lg">
                         <Thead>
-                            <Tr className="border-2 border-slate-600">
+                            <Tr className="border-2 border-zinc-900">
                                 {headers.map((name, idx) => (
                                     <Th
+                                        color={"white"}
                                         key={idx}
                                         onClick={() => handleSort(name)}
-                                        className="cursor-pointer hover:bg-slate-300 transition duration-200">
+                                        className="cursor-pointer hover:bg-zinc-900 transition duration-200">
                                         {name}
                                     </Th>
                                 ))}
@@ -80,7 +81,7 @@ function App() {
                             ))}
                         </Tbody>
                     </Table>
-                    <h1 className="text-center border-slate-600 border-x-2 border-b-2">
+                    <h1 className="text-center border-zinc-900 border-x-2 border-b-2">
                         {profit != undefined ? (
                             profit > 0 ? (
                                 <span className="text-green-500">
