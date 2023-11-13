@@ -1,14 +1,11 @@
 import { useState, useEffect } from "react";
 import { Table, Thead, Tbody, Tr, Th, Td, TableContainer,} from "@chakra-ui/react"; /*prettier-ignore */
+import { buyPriceArray, numberOfSkins, skins } from "./assets";
 
-const skins = [921379, 886606, 38148, 45237, 779175, 769121, 763236, 759175, 773524, 894086, 894095, 894283, 894183, 911078, 927991, 927964, 927994, 927964,927994]; /*prettier-ignore */
-const buyPriceArray = [5.61, 5.85, 7.85, 3.19, 3.65, 3.43, 3.76, 4.27, 3.46, 5.71, 3.61, 3.41, 3.38, 1.94, 1.53, 1.55, 1.55, 1.75, 1.75]; /*prettier-ignore */
-const numberOfSkins = [
-    1, 2, 3, 4, 1, 2, 2, 2, 2, 9, 10, 8, 10, 1, 6, 4, 1, 26, 30,
-];
 console.log(skins.length);
 console.log(buyPriceArray.length);
 console.log(numberOfSkins.length);
+
 function App() {
     const [prices, setPrices] = useState([]);
     const [profit, setProfit] = useState(0);
@@ -16,7 +13,7 @@ function App() {
 
     const addSkins = (skin, i) => {
         if (prices.length === skins.length) return;
-        fetch(`http://localhost:3000/buffData/${skin}`) // Zmieniamy adres URL na serwer proxy
+        fetch(`https://steam-investments-server.vercel.app/${skin}`)
             .then((response) => response.json())
             .then((data) => {
                 let steamPrice = data.data.goods_infos[skin].steam_price_cny;
@@ -36,7 +33,7 @@ function App() {
                     },
                 ]);
                 handleSetProfit(( buffPrice * numberOfSkins[i] - buyPriceArray[i] * numberOfSkins[i]).toFixed(2)); /*prettier-ignore */
-                handleSetTotalValue(buffPrice * numberOfSkins[i]); /*prettier-ignore */
+                handleSetTotalValue(buffPrice * numberOfSkins[i]);
             })
             .catch((err) => addSkins(skin, i));
     };
@@ -110,7 +107,20 @@ function App() {
                         </Tbody>
                     </Table>
                     <h1 className="text-center border-black border-x-2 border-b-2">
-                        Profit: {profit}¥
+                        {profit != undefined ? (
+                            profit > 0 ? (
+                                <span className="text-green-500">
+                                    Profit: {profit}¥
+                                </span>
+                            ) : (
+                                <span className="text-red-500">
+                                    Profit: {profit}¥
+                                </span>
+                            )
+                        ) : (
+                            <span>Loading...</span>
+                        )}
+                        ( {((profit / totalValue) * 100).toFixed(2)}% )
                         <br />
                         Total Value: {totalValue}¥
                     </h1>
