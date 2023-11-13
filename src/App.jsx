@@ -24,11 +24,11 @@ function App() {
                         name: data.data.goods_infos[skin].market_hash_name,
                         skin: skin,
                         icon: data.data.goods_infos[skin].icon_url,
-                        buffPrice: buffPrice,
-                        steamPrice: steamPrice,
+                        buffPrice: parseFloat(buffPrice),
+                        steamPrice: parseFloat(steamPrice),
                         buyPrice: buyPriceArray[i],
                         quantity: numberOfSkins[i],
-                        profit: ( buffPrice * numberOfSkins[i] - buyPriceArray[i] * numberOfSkins[i] ).toFixed(2) /*prettier-ignore */,
+                        profit: parseFloat(( buffPrice * numberOfSkins[i] - buyPriceArray[i] * numberOfSkins[i] ).toFixed(2)) /*prettier-ignore */,
                     },
                 ]);
 
@@ -41,15 +41,16 @@ function App() {
         if (!flag) skins.forEach((skin, i) => addSkins(skin, i));
         flag = true;
     }, []);
-    // useEffect(() => {
-    //     if (prices.length === skins.length) {
-    //
-    //     }
-    // }, [prices]);
+
     const handleSort = (name) => {
         const arr = [...prices];
-        if (typeof name === "number") arr.sort((a, b) => a[name] - b[name]);
-        if (typeof name === "string") arr.sort();
+        if (typeof arr[0][name] === "number")
+            arr.sort((a, b) => a[name] - b[name]).reverse;
+        if (typeof arr[0][name] === "string")
+            arr.sort((a, b) =>
+                a[name] === b[name] ? 0 : a[name] < b[name] ? -1 : 1
+            );
+
         setPrices(arr);
     };
 
@@ -66,7 +67,8 @@ function App() {
                                 {headers.map((name, idx) => (
                                     <Th
                                         key={idx}
-                                        onClick={() => handleSort(name)}>
+                                        onClick={() => handleSort(name)}
+                                        className="cursor-pointer hover:bg-slate-300 transition duration-200">
                                         {name}
                                     </Th>
                                 ))}
@@ -74,7 +76,7 @@ function App() {
                         </Thead>
                         <Tbody>
                             {prices.map((price, idx) => (
-                                <Row price={price} key={idx} />
+                                <Row price={price} idx={idx} key={idx} />
                             ))}
                         </Tbody>
                     </Table>

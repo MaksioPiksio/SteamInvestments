@@ -1,14 +1,18 @@
 import React from "react";
 import {Tr,Td} from "@chakra-ui/react"; /*prettier-ignore */
-
-function Row({ price }) {
+function Row({ price, idx }) {
     return (
-        <Tr className="border-2 border-black">
+        // {idx.profit > 0 ? (
+        //     <Td className="text-green-500">{price.profit}</Td>
+        // ) : (
+        //     <Td className="text-red-500">{price.profit}</Td>
+        // )}
+        <Tr
+            className={`${
+                idx % 2 === 0 && "bg-slate-200"
+            } border-2 border-black`}>
             <Td>
-                <img
-                    src={price.icon}
-                    alt="Girl in a jacket"
-                    className="scale-150"></img>
+                <img src={price.icon} className="scale-150"></img>
             </Td>
             <Td>{price.name}</Td>
             <Td>
