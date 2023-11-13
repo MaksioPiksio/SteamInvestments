@@ -13,7 +13,7 @@ function App() {
 
     const addSkins = (skin, i) => {
         if (prices.length === skins.length) return;
-        fetch(`${import.meta.env.VITE_SERVER_URL}${skin}`)
+        fetch(import.meta.env.VITE_SERVER_URL + skin)
             .then((response) => response.json())
             .then((data) => {
                 let steamPrice = data.data.goods_infos[skin].steam_price_cny;
