@@ -2,10 +2,6 @@ import { useState, useEffect } from "react";
 import { Table, Thead, Tbody, Tr, Th, Td, TableContainer,} from "@chakra-ui/react"; /*prettier-ignore */
 import { buyPriceArray, numberOfSkins, skins } from "./assets";
 
-console.log(skins.length);
-console.log(buyPriceArray.length);
-console.log(numberOfSkins.length);
-
 function App() {
     const [prices, setPrices] = useState([]);
     const [profit, setProfit] = useState(0);
@@ -27,7 +23,7 @@ function App() {
                         icon: data.data.goods_infos[skin].icon_url,
                         buffPrice: buffPrice,
                         steamPrice: steamPrice,
-                        buyPrice: buyPriceArray[i],
+                        buyPrice: skin[1][i],
                         quantity: numberOfSkins[i],
                         profit: ( buffPrice * numberOfSkins[i] - buyPriceArray[i] * numberOfSkins[i] ).toFixed(2) /*prettier-ignore */,
                     },
