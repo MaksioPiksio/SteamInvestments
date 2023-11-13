@@ -59,11 +59,11 @@ function App() {
 
     return (
         <>
-            <div className="flex justify-center">
+            <div className="flex justify-center text-white">
                 <TableContainer>
                     <Table className="max-w-lg">
                         <Thead>
-                            <Tr className="border-2 border-black">
+                            <Tr className="border-2 border-slate-600">
                                 {headers.map((name, idx) => (
                                     <Th
                                         key={idx}
@@ -80,7 +80,7 @@ function App() {
                             ))}
                         </Tbody>
                     </Table>
-                    <h1 className="text-center border-black border-x-2 border-b-2">
+                    <h1 className="text-center border-slate-600 border-x-2 border-b-2">
                         {profit != undefined ? (
                             profit > 0 ? (
                                 <span className="text-green-500">
