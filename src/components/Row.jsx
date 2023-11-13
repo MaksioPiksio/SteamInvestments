@@ -28,7 +28,7 @@ function Row({ price, idx }) {
                 className={`${
                     price.profit > 0 ? "text-green-500" : "text-red-500"
                 }`}>
-                {price.profit}
+                {price.profit.toFixed(2)}
             </Td>
         </Tr>
     );

@@ -33,7 +33,7 @@ function App() {
                     },
                 ]);
 
-                handleSetProfit(( buffPrice * numberOfSkins[i] - buyPriceArray[i] * numberOfSkins[i]).toFixed(2)); /*prettier-ignore */
+                handleSetProfit(( buffPrice * numberOfSkins[i] - buyPriceArray[i] * numberOfSkins[i])); /*prettier-ignore */
                 handleSetTotalValue(buffPrice * numberOfSkins[i]);
             })
             .catch((err) => addSkins(skin, i));
@@ -44,6 +44,7 @@ function App() {
     }, []);
 
     const handleSort = (name) => {
+        if (name == "icon") return;
         const arr = [...prices];
 
         if (typeof arr[0][name] === "number")
@@ -83,13 +84,13 @@ function App() {
                                             selectedHeader == name &&
                                             "bg-zinc-700"
                                         }`}>
-                                        <div className="flex content-center justify-between">
+                                        <div className="flex items-center justify-between">
                                             {name}
                                             {selectedHeader == name ? (
-                                                <i class="fa-solid fa-arrow-down-short-wide"></i>
+                                                <i className="fa-solid fa-arrow-down-short-wide"></i>
                                             ) : (
                                                 selectedHeader == name + 1 && (
-                                                    <i class="fa-solid fa-arrow-up-wide-short"></i>
+                                                    <i className="fa-solid fa-arrow-up-wide-short"></i>
                                                 )
                                             )}
                                         </div>
