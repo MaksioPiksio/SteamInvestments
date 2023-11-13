@@ -23,7 +23,7 @@ function App() {
                         icon: data.data.goods_infos[skin].icon_url,
                         buffPrice: buffPrice,
                         steamPrice: steamPrice,
-                        buyPrice: skin[1][i],
+                        buyPrice: buyPriceArray[i],
                         quantity: numberOfSkins[i],
                         profit: ( buffPrice * numberOfSkins[i] - buyPriceArray[i] * numberOfSkins[i] ).toFixed(2) /*prettier-ignore */,
                     },
