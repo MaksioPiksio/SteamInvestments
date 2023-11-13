@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 import { Table, Thead, Tbody, Tr, Th, Td, TableContainer,} from "@chakra-ui/react"; /*prettier-ignore */
-import { buyPriceArray, numberOfSkins, skins } from "./assets";
+import { buyPriceArray, numberOfSkins, skins, headers } from "./assets";
+import Row from "./components/Row";
 
+let flag = false;
 function App() {
     const [prices, setPrices] = useState([]);
     const [profit, setProfit] = useState(0);
@@ -14,6 +16,7 @@ function App() {
             .then((data) => {
                 let steamPrice = data.data.goods_infos[skin].steam_price_cny;
                 let buffPrice = data.data.items[0].price;
+
                 setPrices((prices) => [
                     ...prices,
                     {
@@ -28,16 +31,28 @@ function App() {
                         profit: ( buffPrice * numberOfSkins[i] - buyPriceArray[i] * numberOfSkins[i] ).toFixed(2) /*prettier-ignore */,
                     },
                 ]);
+
                 handleSetProfit(( buffPrice * numberOfSkins[i] - buyPriceArray[i] * numberOfSkins[i]).toFixed(2)); /*prettier-ignore */
                 handleSetTotalValue(buffPrice * numberOfSkins[i]);
             })
             .catch((err) => addSkins(skin, i));
     };
     useEffect(() => {
-        skins.forEach((skin, i) => {
-            addSkins(skin, i);
-        });
+        if (!flag) skins.forEach((skin, i) => addSkins(skin, i));
+        flag = true;
     }, []);
+    // useEffect(() => {
+    //     if (prices.length === skins.length) {
+    //
+    //     }
+    // }, [prices]);
+    const handleSort = (name) => {
+        const arr = [...prices];
+        if (typeof name === "number") arr.sort((a, b) => a[name] - b[name]);
+        if (typeof name === "string") arr.sort();
+        setPrices(arr);
+    };
+
     const handleSetProfit = (n) => setProfit((profit) => (parseFloat(profit) + parseFloat(n)).toFixed(2)); /*prettier-ignore */
     const handleSetTotalValue = (n) => setTotalValue((totalValue) => (parseFloat(totalValue) + parseFloat(n)).toFixed(2)); /*prettier-ignore */
 
@@ -48,57 +63,18 @@ function App() {
                     <Table className="max-w-lg">
                         <Thead>
                             <Tr className="border-2 border-black">
-                                <Th>Icon</Th>
-                                <Th>Name</Th>
-                                <Th>Buy Price</Th>
-                                <Th>Buff Price</Th>
-                                <Th>Steam Price</Th>
-                                <Th>Quantity</Th>
-                                <Th>Profit</Th>
+                                {headers.map((name, idx) => (
+                                    <Th
+                                        key={idx}
+                                        onClick={() => handleSort(name)}>
+                                        {name}
+                                    </Th>
+                                ))}
                             </Tr>
                         </Thead>
                         <Tbody>
                             {prices.map((price, idx) => (
-                                <Tr key={idx} className="border-2 border-black">
-                                    <Td>
-                                        <img
-                                            src={price.icon}
-                                            alt="Girl in a jacket"
-                                            className="scale-150"></img>
-                                    </Td>
-                                    <Td>{price.name}</Td>
-                                    <Td>
-                                        {price.buyPrice}¥/
-                                        {(
-                                            price.buyPrice * price.quantity
-                                        ).toFixed(2)}
-                                        ¥
-                                    </Td>
-                                    <Td>
-                                        {price.buffPrice}¥/
-                                        {(
-                                            price.buffPrice * price.quantity
-                                        ).toFixed(2)}
-                                        ¥
-                                    </Td>
-                                    <Td>
-                                        {price.steamPrice}¥/
-                                        {(
-                                            price.steamPrice * price.quantity
-                                        ).toFixed(2)}
-                                        ¥
-                                    </Td>
-                                    <Td>{price.quantity}</Td>
-                                    {price.profit > 0 ? (
-                                        <Td className="text-green-500">
-                                            {price.profit}
-                                        </Td>
-                                    ) : (
-                                        <Td className="text-red-500">
-                                            {price.profit}
-                                        </Td>
-                                    )}
-                                </Tr>
+                                <Row price={price} key={idx} />
                             ))}
                         </Tbody>
                     </Table>
