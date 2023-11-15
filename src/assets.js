@@ -9,4 +9,3 @@ export const currencyPriceObject = {
     " USD": 0.15,
     " PLN": 0.58,
 };
-x;
