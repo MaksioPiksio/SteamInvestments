@@ -66,10 +66,6 @@ function App() {
         setPrices(arr);
     };
 
-    const handleChangeCurrency = (name) => {
-        setCurrency(name);
-    };
-
     const handleSetProfit = (n) => setProfit((profit) => (parseFloat(profit) + parseFloat(n)).toFixed(2)); /*prettier-ignore */
     const handleSetTotalValue = (n) => setTotalValue((totalValue) => (parseFloat(totalValue) + parseFloat(n)).toFixed(2)); /*prettier-ignore */
 
@@ -78,7 +74,7 @@ function App() {
             <div className=" w-screen flex justify-center m-4 gap-4">
                 {currencyArray.map((name, idx) => (
                     <button
-                        onClick={() => handleChangeCurrency(name)}
+                        onClick={() => setCurrency(name)}
                         className={`text-white ${
                             name == currency && "bg-zinc-900"
                         } py-2 px-4 rounded text-center cursor-pointer`}
