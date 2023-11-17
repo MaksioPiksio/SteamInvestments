@@ -148,9 +148,7 @@ function App() {
                         )}
                         ({" "}
                         {(
-                            (profit / totalValue) *
-                            100 *
-                            currencyPriceObject[currency]
+                            (profit / totalValue) * 100
                         ).toFixed(2)}
                         % )
                         <br />
