@@ -4,6 +4,9 @@ import { buyPriceArray, numberOfSkins, skins, headers,currencyArray, currencyPri
 import Row from "./components/Row";
 
 let flag = false;
+console.log(skins.length);
+console.log(buyPriceArray.length);
+console.log(numberOfSkins.length);
 function App() {
     const [prices, setPrices] = useState([]);
     const [selectedHeader, setSelectedHeader] = useState("");
