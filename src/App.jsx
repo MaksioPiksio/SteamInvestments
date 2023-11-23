@@ -15,7 +15,6 @@ function App() {
     const [currency, setCurrency] = useState(" RMB");
 
     const addSkins = (skin, i) => {
-        if (prices.length === skins.length) return;
         fetch(import.meta.env.VITE_SERVER_URL + skin)
             .then((response) => response.json())
             .then((data) => {
