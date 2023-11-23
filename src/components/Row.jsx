@@ -9,7 +9,7 @@ function Row({ currency, price, idx }) {
                 idx % 2 === 0 && "bg-zinc-900"
             } border-2 border-zinc-900`}>
             <Td>
-                {idx}
+                {idx+1}
             </Td>
             <Td>
                 <img src={price.icon} className="scale-150"></img>
