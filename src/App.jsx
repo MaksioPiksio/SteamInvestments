@@ -148,7 +148,7 @@ function App() {
                         ) : (
                             <span>Loading...</span>
                         )}
-                        ({""}
+                        {" ("}
                         {(
                             (profit / totalValue) * 100
                         ).toFixed(2)}
