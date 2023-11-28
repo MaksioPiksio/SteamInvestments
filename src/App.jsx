@@ -148,11 +148,11 @@ function App() {
                         ) : (
                             <span>Loading...</span>
                         )}
-                        ({" "}
+                        ({""}
                         {(
                             (profit / totalValue) * 100
                         ).toFixed(2)}
-                        % )
+                        %)
                         <br />
                         Total Value:{" "}
                         {(totalValue * currencyPriceObject[currency]).toFixed(
