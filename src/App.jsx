@@ -53,13 +53,13 @@ function App() {
 
         if (typeof arr[0][name] === "number"){
             arr.sort((a, b) => {
-  if (a === Infinity) 
-    return 1;
-  else if (b === Infinity) 
-    return -1;
-  else 
-    return a[name] - b[name]);
-})}
+              if (a === Infinity) 
+                return 1;
+              else if (b === Infinity) 
+                return -1;
+              else 
+                return a[name] - b[name]);
+            })}
 
         
         
