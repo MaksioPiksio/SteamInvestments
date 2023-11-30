@@ -53,12 +53,17 @@ function App() {
       const arr = [...prices];
     
       arr.sort((a, b) => {
-        const aValue = typeof a[name] === "number" ? a[name] : parseFloat(a[name]);
-        const bValue = typeof b[name] === "number" ? b[name] : parseFloat(b[name]);
-        return aValue - bValue;
+        if (name === "name") {
+          return a[name].localeCompare(b[name]);
+        } else {
+          const aValue = typeof a[name] === "number" ? a[name] : parseFloat(a[name]);
+          const bValue = typeof b[name] === "number" ? b[name] : parseFloat(b[name]);
+          return aValue - bValue;
+        }
       });
     
       setSelectedHeader(name);
+    
       if (selectedHeader === name) {
         arr.reverse();
         setSelectedHeader(name + 1);
@@ -66,6 +71,7 @@ function App() {
     
       setPrices(arr);
     };
+
 
     const handleSetProfit = (n) => setProfit((profit) => (parseFloat(profit) + parseFloat(n)).toFixed(2)); /*prettier-ignore */
     const handleSetTotalValue = (n) => setTotalValue((totalValue) => (parseFloat(totalValue) + parseFloat(n)).toFixed(2)); /*prettier-ignore */
