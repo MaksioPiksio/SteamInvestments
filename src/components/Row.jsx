@@ -53,6 +53,9 @@ function Row({ currency, price, idx }) {
                 {(price.profit * currencyPriceObject[currency]).toFixed(2) +
                     currency}
             </Td>
+            <Td>
+                {price.roi}
+            </Td>
         </Tr>
     );
 }
