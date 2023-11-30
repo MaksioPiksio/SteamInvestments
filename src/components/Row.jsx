@@ -53,6 +53,12 @@ function Row({ currency, price, idx }) {
                 {(price.profit * currencyPriceObject[currency]).toFixed(2) +
                     currency}
             </Td>
+            <Td
+                className={`${
+                    price.roi == "Infinity" ? "text-green-500" : price.roi > 0 ? "text-green-500" : "text-red-500"
+                }`}>
+                {price.roi}
+            </Td>
             <Td>
                 {price.roi}
             </Td>
