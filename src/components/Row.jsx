@@ -59,9 +59,6 @@ function Row({ currency, price, idx }) {
                 }`}>
                 {price.roi}
             </Td>
-            <Td>
-                {price.roi}
-            </Td>
         </Tr>
     );
 }
