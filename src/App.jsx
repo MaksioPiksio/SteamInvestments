@@ -54,9 +54,7 @@ function App() {
             arr.sort((a, b) => a[name] - b[name]);
 
         if (typeof arr[0][name] === "string")
-            arr.sort((a, b) =>
-                a[name] === b[name] ? 0 : a[name] < b[name] ? -1 : 1
-            );
+            arr.sort((a, b) => a[name] === b[name] ? 0 : a[name] < b[name] ? -1 : 1);
 
         setSelectedHeader(name);
 
