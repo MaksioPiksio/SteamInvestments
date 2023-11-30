@@ -33,7 +33,7 @@ function App() {
                         buyPrice: buyPriceArray[i],
                         quantity: numberOfSkins[i],
                         profit: parseFloat(( buffPrice * numberOfSkins[i] - buyPriceArray[i] * numberOfSkins[i] ).toFixed(2)) /*prettier-ignore */,
-                        roi: ((buffPrice-buyPriceArray[i])/buyPriceArray[i]).toFixed(2),
+                        roi: buffPrice.toFixed(2),
                     },
                 ]);
 
