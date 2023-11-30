@@ -48,23 +48,23 @@ function App() {
     }, []);
 
     const handleSort = (name) => {
-        if (name == "icon") return;
-        const arr = [...prices];
-
-        if (typeof arr[0][name] === "number")
-            arr.sort((a, b) => a[name] - b[name]);
-
-        if (typeof arr[0][name] === "string")
-            arr.sort((a, b) => a[name] === b[name] ? 0 : a[name] < b[name] ? -1 : 1);
-
-        setSelectedHeader(name);
-
-        if (selectedHeader === name) {
-            arr.reverse();
-            setSelectedHeader(name + 1);
-        }
-
-        setPrices(arr);
+      if (name === "icon") return;
+    
+      const arr = [...prices];
+    
+      arr.sort((a, b) => {
+        const aValue = typeof a[name] === "number" ? a[name] : parseFloat(a[name]);
+        const bValue = typeof b[name] === "number" ? b[name] : parseFloat(b[name]);
+        return aValue - bValue;
+      });
+    
+      setSelectedHeader(name);
+      if (selectedHeader === name) {
+        arr.reverse();
+        setSelectedHeader(name + 1);
+      }
+    
+      setPrices(arr);
     };
 
     const handleSetProfit = (n) => setProfit((profit) => (parseFloat(profit) + parseFloat(n)).toFixed(2)); /*prettier-ignore */
