@@ -54,7 +54,7 @@ function Row({ currency, price, idx }) {
                     currency}
             </Td>
             <Td>
-                {(price.profit/price.buyPrice).toFixed(2)}
+                {price.roi}
             </Td>
         </Tr>
     );
