@@ -51,18 +51,9 @@ function App() {
         if (name == "icon") return;
         const arr = [...prices];
 
-        if (typeof arr[0][name] === "number"){
-            arr.sort((a, b) => {
-              if (a[name] === Infinity) 
-                return 1;
-              else if (b[name] === Infinity) 
-                return -1;
-              else 
-                return a[name] - b[name]);
-            })}
+        if (typeof arr[0][name] === "number")
+            arr.sort((a, b) => a[name] - b[name]);
 
-        
-        
         if (typeof arr[0][name] === "string")
             arr.sort((a, b) => a[name] === b[name] ? 0 : a[name] < b[name] ? -1 : 1);
 
