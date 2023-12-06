@@ -12,7 +12,7 @@ function Row({ currency, price, idx }) {
                 {idx+1}
             </Td>
             <Td>
-                <img src={price.icon} className="scale-150"></img>
+                <img src={price.icon} className="scale-150" alt="case-img"></img>
             </Td>
             <Td>{price.name}</Td>
             <Td>
