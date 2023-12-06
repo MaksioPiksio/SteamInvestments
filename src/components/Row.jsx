@@ -4,8 +4,10 @@ import { currencyPriceObject } from "../assets";
 
 function Row({ currency, price, idx }) {
     return (
-        <Tr  variant='striped' colorScheme='teal'
-            className={`border-2 border-zinc-900`}>
+        <Tr
+            className={`${
+                idx % 2 === 0 && "bg-zinc-900"
+            } border-2 border-zinc-900`}>
             <Td>
                 {idx+1}
             </Td>
