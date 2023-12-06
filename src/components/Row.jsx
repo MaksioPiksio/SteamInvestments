@@ -4,7 +4,7 @@ import { currencyPriceObject } from "../assets";
 
 function Row({ currency, price, idx }) {
     return (
-        <Tr
+        <Tr  variant='striped' colorScheme='teal'
             className={`${
                 idx % 2 === 0 && "bg-zinc-900"
             } border-2 border-zinc-900`}>
