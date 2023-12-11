@@ -15,32 +15,33 @@ function App() {
     const [currency, setCurrency] = useState(" RMB");
 
     const addSkins = (skin, i) => {
-        fetch(import.meta.env.VITE_SERVER_URL + skin)
-            .then((response) => response.json())
-            .then((data) => {
-                let steamPrice = data.data.goods_infos[skin].steam_price_cny;
-                let buffPrice = data.data.items[0].price;
-
-                setPrices((prices) => [
-                    ...prices,
-                    {
-                        index: prices.length + 1,
-                        name: data.data.goods_infos[skin].market_hash_name,
-                        skin: skin,
-                        icon: data.data.goods_infos[skin].icon_url,
-                        buffPrice: parseFloat(buffPrice),
-                        steamPrice: parseFloat(steamPrice),
-                        buyPrice: buyPriceArray[i],
-                        quantity: numberOfSkins[i],
-                        profit: parseFloat(( buffPrice * numberOfSkins[i] - buyPriceArray[i] * numberOfSkins[i] ).toFixed(2)) /*prettier-ignore */,
-                        roi: ((buffPrice - buyPriceArray[i]) / buyPriceArray[i] * 100).toFixed(2),
-                    },
-                ]);
-
-                handleSetProfit(( buffPrice * numberOfSkins[i] - buyPriceArray[i] * numberOfSkins[i])); /*prettier-ignore */
-                handleSetTotalValue(buffPrice * numberOfSkins[i]);
-            })
-            .catch((err) => addSkins(skin, i));
+        try {
+            let response = fetch(import.meta.env.VITE_SERVER_URL + skin);
+            let data = response.json()
+            let steamPrice = data.data.goods_infos[skin].steam_price_cny;
+            let buffPrice = data.data.items[0].price;
+    
+            setPrices((prices) => [
+                ...prices,
+                {
+                    index: prices.length + 1,
+                    name: data.data.goods_infos[skin].market_hash_name,
+                    skin: skin,
+                    icon: data.data.goods_infos[skin].icon_url,
+                    buffPrice: parseFloat(buffPrice),
+                    steamPrice: parseFloat(steamPrice),
+                    buyPrice: buyPriceArray[i],
+                    quantity: numberOfSkins[i],
+                    profit: parseFloat(( buffPrice * numberOfSkins[i] - buyPriceArray[i] * numberOfSkins[i] ).toFixed(2)) /*prettier-ignore */,
+                    roi: ((buffPrice - buyPriceArray[i]) / buyPriceArray[i] * 100).toFixed(2),
+                },
+            ]);
+    
+            handleSetProfit(( buffPrice * numberOfSkins[i] - buyPriceArray[i] * numberOfSkins[i])); /*prettier-ignore */
+            handleSetTotalValue(buffPrice * numberOfSkins[i]);
+        } catch (error) {
+            addSkins(skin, i);
+        }
     };
     useEffect(() => {
         if (!flag) skins.forEach((skin, i) => addSkins(skin, i));
