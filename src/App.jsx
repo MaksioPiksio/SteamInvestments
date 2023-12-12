@@ -1,16 +1,19 @@
 import { useState, useEffect } from "react";
-import { useToast, Table, Thead, Tbody, Tr, Th, Td, TableContainer, Button} from "@chakra-ui/react"; /*prettier-ignore */
-import { buyPriceArray, numberOfSkins, skins, headers,currencyArray, currencyPriceObject } from "./assets"; /*prettier-ignore */
+import { useToast, Table, Thead, Tbody, Tr, Th, TableContainer } from "@chakra-ui/react"; /*prettier-ignore */
+import { skinData, headers,currencyArray, currencyPriceObject } from "./assets"; /*prettier-ignore */
 import Row from "./components/Row";
+import Navbar from "./components/Navbar";
+import Tfooter from "./components/Tfooter";
 
+console.log(skinData[0]);
 let flag = false;
 function App() {
     const [prices, setPrices] = useState([]);
     const [selectedHeader, setSelectedHeader] = useState("");
     const [profit, setProfit] = useState(0);
     const [totalValue, setTotalValue] = useState(0);
-    const [currency, setCurrency] = useState(" RMB");
-    const toast = useToast()
+    const [currency, setCurrency] = useState(" ¥");
+    const toast = useToast();
 
     const addSkins = (skin, i) => {
         fetch(import.meta.env.VITE_SERVER_URL + skin)
@@ -28,76 +31,70 @@ function App() {
                         icon: data.data.goods_infos[skin].icon_url,
                         buffPrice: parseFloat(buffPrice),
                         steamPrice: parseFloat(steamPrice),
-                        buyPrice: buyPriceArray[i],
-                        quantity: numberOfSkins[i],
-                        profit: parseFloat(( buffPrice * numberOfSkins[i] - buyPriceArray[i] * numberOfSkins[i] ).toFixed(2)) /*prettier-ignore */,
-                        roi: ((buffPrice - buyPriceArray[i]) / buyPriceArray[i] * 100).toFixed(2),
+                        buyPrice: skinData[i].buyPrice,
+                        quantity: skinData[i].quantity,
+                        profit: parseFloat(( buffPrice * skinData[i].quantity - skinData[i].buyPrice * skinData[i].quantity ).toFixed(2)) /*prettier-ignore */,
+                        roi: (((buffPrice - skinData[i].buyPrice) / skinData[i].buyPrice) * 100).toFixed(2) /*prettier-ignore */,
                     },
                 ]);
-                handleSetProfit(( buffPrice * numberOfSkins[i] - buyPriceArray[i] * numberOfSkins[i])); /*prettier-ignore */
-                handleSetTotalValue(buffPrice * numberOfSkins[i]);
+                handleSetProfit(( buffPrice * skinData[i].quantity - skinData[i].buyPrice * skinData[i].quantity)); /*prettier-ignore */
+                handleSetTotalValue(buffPrice * skinData[i].quantity);
             })
             .catch((err) => addSkins(skin, i));
     };
-    
+
     useEffect(() => {
-        if (!flag) skins.forEach((skin, i) => addSkins(skin, i));
+        if (!flag) skinData.forEach((skin, i) => addSkins(skin.id, i));
         flag = true;
     }, []);
 
     useEffect(() => {
-        if(skins.length == prices.length)
+        if (skinData.length == prices.length)
             toast({
-                title: 'Skins were loaded',
-                status: 'success',
-                duration: 9000,
+                title: "Skins were loaded",
+                status: "success",
+                duration: 2000,
                 isClosable: true,
-            })
+            });
     }, [prices]);
 
     const handleSort = (name) => {
-      if (name === "icon") return;
-    
-      const arr = [...prices];
-    
-      arr.sort((a, b) => {
-        if (name === "name") {
-          return a[name].localeCompare(b[name]);
-        } else {
-          const aValue = typeof a[name] === "number" ? a[name] : parseFloat(a[name]);
-          const bValue = typeof b[name] === "number" ? b[name] : parseFloat(b[name]);
-          return aValue - bValue;
-        }
-      });
-    
-      setSelectedHeader(name);
-    
-      if (selectedHeader === name) {
-        arr.reverse();
-        setSelectedHeader(name + 1);
-      }
-    
-      setPrices(arr);
-    };
+        if (name === "icon" || name === " ") return;
 
+        const arr = [...prices];
+
+        arr.sort((a, b) => {
+            if (name === "name") {
+                return a[name].localeCompare(b[name]);
+            } else {
+                const aValue =
+                    typeof a[name] === "number" ? a[name] : parseFloat(a[name]);
+                const bValue =
+                    typeof b[name] === "number" ? b[name] : parseFloat(b[name]);
+                return aValue - bValue;
+            }
+        });
+
+        setSelectedHeader(name);
+
+        if (selectedHeader === name) {
+            arr.reverse();
+            setSelectedHeader(name + 1);
+        }
+
+        setPrices(arr);
+    };
 
     const handleSetProfit = (n) => setProfit((profit) => (parseFloat(profit) + parseFloat(n)).toFixed(2)); /*prettier-ignore */
     const handleSetTotalValue = (n) => setTotalValue((totalValue) => (parseFloat(totalValue) + parseFloat(n)).toFixed(2)); /*prettier-ignore */
 
     return (
         <>
-            <div className=" w-screen flex justify-center m-4 gap-4">
-                {currencyArray.map((name, idx) => (
-                    <button
-                        onClick={() => setCurrency(name)}
-                        className={`text-white ${
-                            name == currency && "bg-zinc-900"
-                        } py-2 px-4 rounded text-center cursor-pointer`}
-                        key={idx}>
-                        {name}
-                    </button>
-                ))}
-            </div>
+            <Navbar
+                currencyArray={currencyArray}
+                currency={currency}
+                setCurrency={setCurrency}
+            />
             <div className="flex justify-center text-white">
                 <TableContainer>
                     <Table className="max-w-lg">
@@ -139,40 +136,12 @@ function App() {
                             ))}
                         </Tbody>
                     </Table>
-                    <h1 className="text-center border-zinc-900 border-x-2 border-b-2">
-                        {profit != undefined ? (
-                            profit > 0 ? (
-                                <span className="text-green-500">
-                                    Profit:{" "}
-                                    {(
-                                        profit * currencyPriceObject[currency]
-                                    ).toFixed(2)}
-                                    {currency}
-                                </span>
-                            ) : (
-                                <span className="text-red-500">
-                                    Profit:{" "}
-                                    {(
-                                        profit * currencyPriceObject[currency]
-                                    ).toFixed(2)}
-                                    {currency}
-                                </span>
-                            )
-                        ) : (
-                            <span>Loading...</span>
-                        )}
-                        {" ("}
-                        {(
-                            (profit / totalValue) * 100
-                        ).toFixed(2)}
-                        %)
-                        <br />
-                        Total Value:{" "}
-                        {(totalValue * currencyPriceObject[currency]).toFixed(
-                            2
-                        )}
-                        {currency}
-                    </h1>
+                    <Tfooter
+                        profit={profit}
+                        currencyPriceObject={currencyPriceObject}
+                        totalValue={totalValue}
+                        currency={currency}
+                    />
                 </TableContainer>
             </div>
         </>

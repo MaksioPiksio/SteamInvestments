@@ -8,11 +8,12 @@ function Row({ currency, price, idx }) {
             className={`${
                 idx % 2 === 0 && "bg-zinc-900"
             } border-2 border-zinc-900`}>
+            <Td>{idx + 1}</Td>
             <Td>
-                {idx+1}
-            </Td>
-            <Td>
-                <img src={price.icon} className="scale-150" alt="case-img"></img>
+                <img
+                    src={price.icon}
+                    className="scale-150"
+                    alt="case-img"></img>
             </Td>
             <Td>{price.name}</Td>
             <Td>
@@ -55,7 +56,11 @@ function Row({ currency, price, idx }) {
             </Td>
             <Td
                 className={`${
-                    price.roi == "Infinity" ? "text-green-500" : price.roi > 0 ? "text-green-500" : "text-red-500"
+                    price.roi == "Infinity"
+                        ? "text-green-500"
+                        : price.roi > 0
+                        ? "text-green-500"
+                        : "text-red-500"
                 }`}>
                 {price.roi}
             </Td>
