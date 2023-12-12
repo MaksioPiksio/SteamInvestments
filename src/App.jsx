@@ -1,18 +1,16 @@
 import { useState, useEffect } from "react";
-import { Table, Thead, Tbody, Tr, Th, Td, TableContainer, Button} from "@chakra-ui/react"; /*prettier-ignore */
+import { useToast, Table, Thead, Tbody, Tr, Th, Td, TableContainer, Button} from "@chakra-ui/react"; /*prettier-ignore */
 import { buyPriceArray, numberOfSkins, skins, headers,currencyArray, currencyPriceObject } from "./assets"; /*prettier-ignore */
 import Row from "./components/Row";
 
 let flag = false;
-console.log(skins.length);
-console.log(buyPriceArray.length);
-console.log(numberOfSkins.length);
 function App() {
     const [prices, setPrices] = useState([]);
     const [selectedHeader, setSelectedHeader] = useState("");
     const [profit, setProfit] = useState(0);
     const [totalValue, setTotalValue] = useState(0);
     const [currency, setCurrency] = useState(" RMB");
+    const toast = useToast()
 
     const addSkins = (skin, i) => {
         fetch(import.meta.env.VITE_SERVER_URL + skin)
@@ -36,7 +34,6 @@ function App() {
                         roi: ((buffPrice - buyPriceArray[i]) / buyPriceArray[i] * 100).toFixed(2),
                     },
                 ]);
-
                 handleSetProfit(( buffPrice * numberOfSkins[i] - buyPriceArray[i] * numberOfSkins[i])); /*prettier-ignore */
                 handleSetTotalValue(buffPrice * numberOfSkins[i]);
             })
@@ -47,6 +44,16 @@ function App() {
         if (!flag) skins.forEach((skin, i) => addSkins(skin, i));
         flag = true;
     }, []);
+
+    useEffect(() => {
+        if(skins.length == prices.length)
+            toast({
+                title: 'Skins were loaded',
+                status: 'success',
+                duration: 9000,
+                isClosable: true,
+            })
+    }, [prices]);
 
     const handleSort = (name) => {
       if (name === "icon") return;
