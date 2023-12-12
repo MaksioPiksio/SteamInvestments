@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
-import { useToast, Table, Thead, Tbody, Tr, Th, TableContainer } from "@chakra-ui/react"; /*prettier-ignore */
+import { useToast, Table, TableContainer } from "@chakra-ui/react"; /*prettier-ignore */
 import { skinData, headers,currencyArray, currencyPriceObject } from "./assets"; /*prettier-ignore */
-import Row from "./components/Row";
 import Navbar from "./components/Navbar";
-import Tfooter from "./components/Tfooter";
+import THeader from "./components/THeader";
+import TBody from "./components/TBody";
+import TFooter from "./components/TFooter";
 
-console.log(skinData[0]);
 let flag = false;
 function App() {
     const [prices, setPrices] = useState([]);
@@ -15,32 +15,31 @@ function App() {
     const [currency, setCurrency] = useState(" ¥");
     const toast = useToast();
 
-    const addSkins = (skin, i) => {
-        fetch(import.meta.env.VITE_SERVER_URL + skin)
-            .then((response) => response.json())
-            .then((data) => {
-                let steamPrice = data.data.goods_infos[skin].steam_price_cny;
-                let buffPrice = data.data.items[0].price;
-
-                setPrices((prices) => [
-                    ...prices,
-                    {
-                        index: prices.length + 1,
-                        name: data.data.goods_infos[skin].market_hash_name,
-                        skin: skin,
-                        icon: data.data.goods_infos[skin].icon_url,
-                        buffPrice: parseFloat(buffPrice),
-                        steamPrice: parseFloat(steamPrice),
-                        buyPrice: skinData[i].buyPrice,
-                        quantity: skinData[i].quantity,
-                        profit: parseFloat(( buffPrice * skinData[i].quantity - skinData[i].buyPrice * skinData[i].quantity ).toFixed(2)) /*prettier-ignore */,
-                        roi: (((buffPrice - skinData[i].buyPrice) / skinData[i].buyPrice) * 100).toFixed(2) /*prettier-ignore */,
-                    },
-                ]);
-                handleSetProfit(( buffPrice * skinData[i].quantity - skinData[i].buyPrice * skinData[i].quantity)); /*prettier-ignore */
-                handleSetTotalValue(buffPrice * skinData[i].quantity);
-            })
-            .catch((err) => addSkins(skin, i));
+    const addSkins = async (skin, i) => {
+        try {
+            const response = await fetch(import.meta.env.VITE_SERVER_URL + skin); /*prettier-ignore */
+            const data = await response.json();
+            let buffPrice = data.data.items[0].price;
+            setPrices((prices) => [
+                ...prices,
+                {
+                    index: prices.length + 1,
+                    name: data.data.goods_infos[skin].market_hash_name,
+                    skin: skin,
+                    icon: data.data.goods_infos[skin].icon_url,
+                    buffPrice: parseFloat(buffPrice),
+                    steamPrice: parseFloat(data.data.goods_infos[skin].steam_price_cny) /*prettier-ignore */,
+                    buyPrice: skinData[i].buyPrice,
+                    quantity: skinData[i].quantity,
+                    profit: parseFloat((buffPrice * skinData[i].quantity - skinData[i].buyPrice * skinData[i].quantity).toFixed(2)) /*prettier-ignore */,
+                    roi: (((buffPrice - skinData[i].buyPrice) / skinData[i].buyPrice) * 100).toFixed(2) /*prettier-ignore */,
+                },
+            ]);
+            handleSetProfit(buffPrice * skinData[i].quantity - skinData[i].buyPrice * skinData[i].quantity); /*prettier-ignore */
+            handleSetTotalValue(buffPrice * skinData[i].quantity);
+        } catch (err) {
+            addSkins(skin, i);
+        }
     };
 
     useEffect(() => {
@@ -60,13 +59,11 @@ function App() {
 
     const handleSort = (name) => {
         if (name === "icon" || name === " ") return;
-
         const arr = [...prices];
 
         arr.sort((a, b) => {
-            if (name === "name") {
-                return a[name].localeCompare(b[name]);
-            } else {
+            if (name === "name") return a[name].localeCompare(b[name]);
+            else {
                 const aValue =
                     typeof a[name] === "number" ? a[name] : parseFloat(a[name]);
                 const bValue =
@@ -76,12 +73,10 @@ function App() {
         });
 
         setSelectedHeader(name);
-
         if (selectedHeader === name) {
             arr.reverse();
             setSelectedHeader(name + 1);
         }
-
         setPrices(arr);
     };
 
@@ -98,45 +93,14 @@ function App() {
             <div className="flex justify-center text-white">
                 <TableContainer>
                     <Table className="max-w-lg">
-                        <Thead>
-                            <Tr className="border-2 border-zinc-900">
-                                {headers.map((name, idx) => (
-                                    <Th
-                                        color={"white"}
-                                        key={idx}
-                                        onClick={() => handleSort(name)}
-                                        className={`cursor-pointer hover:bg-zinc-900 transition duration-200 ${
-                                            selectedHeader == name
-                                                ? "bg-zinc-700"
-                                                : selectedHeader == name + 1 &&
-                                                  "bg-zinc-700"
-                                        }`}>
-                                        <div className="flex items-center justify-between">
-                                            {name}
-                                            {selectedHeader == name ? (
-                                                <i className="fa-solid fa-arrow-down-short-wide"></i>
-                                            ) : (
-                                                selectedHeader == name + 1 && (
-                                                    <i className="fa-solid fa-arrow-up-wide-short"></i>
-                                                )
-                                            )}
-                                        </div>
-                                    </Th>
-                                ))}
-                            </Tr>
-                        </Thead>
-                        <Tbody>
-                            {prices.map((price, idx) => (
-                                <Row
-                                    currency={currency}
-                                    price={price}
-                                    idx={idx}
-                                    key={idx}
-                                />
-                            ))}
-                        </Tbody>
+                        <THeader
+                            headers={headers}
+                            selectedHeader={selectedHeader}
+                            handleSort={handleSort}
+                        />
+                        <TBody currency={currency} prices={prices} />
                     </Table>
-                    <Tfooter
+                    <TFooter
                         profit={profit}
                         currencyPriceObject={currencyPriceObject}
                         totalValue={totalValue}

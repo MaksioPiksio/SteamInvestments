@@ -1,6 +1,6 @@
 import { React } from "react";
 
-function Tfooter({ profit, currencyPriceObject, totalValue, currency }) {
+function TFooter({ profit, currencyPriceObject, totalValue, currency }) {
     return (
         <h1 className="text-center border-zinc-900 border-x-2 border-b-2">
             {profit != undefined ? (
@@ -31,4 +31,4 @@ function Tfooter({ profit, currencyPriceObject, totalValue, currency }) {
     );
 }
 
-export default Tfooter;
+export default TFooter;
