@@ -1,4 +1,4 @@
-export const headers = [" ", "icon", "name", "buyPrice", "buffPrice", "steamPrice", "quantity", "profit", "roi"]; /*prettier-ignore */
+export const headers = ["", "icon", "name", "buyPrice", "buffPrice", "steamPrice", "quantity", "profit", "roi"]; /*prettier-ignore */
 export const currencyArray = [" ¥", " $", " PLN"];
 export const currencyPriceObject = { " ¥": 1, " $": 0.14, " PLN": 0.58 };
 
@@ -40,5 +40,5 @@ export const skinData = [
     { id: 928019, buyPrice: 19.47, quantity: 3 },
     { id: 928047, buyPrice: 12.8, quantity: 2 },
     { id: 928209, buyPrice: 17.9, quantity: 2 },
-    { id: 39959, buyPrice: 240, quantity: 1 },
+    { id: 39959, buyPrice: 227.44, quantity: 1 },
 ];

@@ -9,7 +9,7 @@ import TFooter from "./components/TFooter";
 let flag = false;
 function App() {
     const [prices, setPrices] = useState([]);
-    const [selectedHeader, setSelectedHeader] = useState("");
+    const [selectedHeader, setSelectedHeader] = useState(" ");
     const [profit, setProfit] = useState(0);
     const [totalValue, setTotalValue] = useState(0);
     const [currency, setCurrency] = useState(" ¥");
@@ -58,19 +58,14 @@ function App() {
     }, [prices]);
 
     const handleSort = (name) => {
-        if (name === "icon" || name === " ") return;
+        if (name === "icon" || name === "") return;
         const arr = [...prices];
 
-        arr.sort((a, b) => {
-            if (name === "name") return a[name].localeCompare(b[name]);
-            else {
-                const aValue =
-                    typeof a[name] === "number" ? a[name] : parseFloat(a[name]);
-                const bValue =
-                    typeof b[name] === "number" ? b[name] : parseFloat(b[name]);
-                return aValue - bValue;
-            }
-        });
+        arr.sort((a, b) =>
+            name === "name"
+                ? a[name].localeCompare(b[name])
+                : parseFloat(a[name]) - parseFloat(b[name])
+        );
 
         setSelectedHeader(name);
         if (selectedHeader === name) {
