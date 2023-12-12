@@ -62,7 +62,7 @@ function Row({ currency, price, idx }) {
                         ? "text-green-500"
                         : "text-red-500"
                 }`}>
-                {price.roi}%
+                {price.roi == Infinity ? price.roi : price.roi.toFixed(2) + "%"}
             </Td>
         </Tr>
     );
