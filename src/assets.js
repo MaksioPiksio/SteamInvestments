@@ -3,7 +3,7 @@ export const currencyArray = [" ¥", " $", " PLN"];
 export const currencyPriceObject = { " ¥": 1, " $": 0.14, " PLN": 0.58 };
 
 export const skinData = [
-    { id: 921379, buyPrice: 5.61, quantity: 1 },
+    { id: 921379, buyPrice: 2.80, quantity: 2 },
     { id: 886606, buyPrice: 2.93, quantity: 4 },
     { id: 38148, buyPrice: 7.85, quantity: 3 },
     { id: 45237, buyPrice: 3.19, quantity: 4 },
