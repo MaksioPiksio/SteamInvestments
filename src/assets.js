@@ -41,4 +41,5 @@ export const skinData = [
     { id: 928047, buyPrice: 12.8, quantity: 2 },
     { id: 928209, buyPrice: 17.9, quantity: 2 },
     { id: 39959, buyPrice: 227.44, quantity: 1 },
+    { id: 33820, buyPrice: 4.66, quantity: 1 },
 ];
