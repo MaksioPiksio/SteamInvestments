@@ -1,6 +1,6 @@
 export const headers = ["", "icon", "name", "buyPrice", "buffPrice", "steamPrice", "quantity", "profit", "roi"]; /*prettier-ignore */
 export const currencyArray = [" ¥", " $", " PLN"];
-export const currencyPriceObject = { " ¥": 1, " $": 0.14, " PLN": 0.58 };
+export const currencyPriceObject = { " ¥": 1, " $": 0.14, " PLN": 0.55 };
 
 export const skinData = [
     { id: 921379, buyPrice: 2.80, quantity: 2 },
