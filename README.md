@@ -1,30 +1,36 @@
-# React + TypeScript + Vite
+# SteamInvestments
+### SteamInvestments - a professional Investment site to track your steam investments
+___
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![Home page](/steam.png)
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+#### How to install and expand *SteamInvestments*?
+* Create a new folder and open up the terminal in this folder
+* Initialize git repository by typing
+```bash
+git init
 ```
+* Clone SteamInvestments into your folder by typing
+```bash
+git clone https://github.com/MaksioPiksio/SteamInvestments.git
+```
+* Now, after you see a list of files and directories type ```npm i``` to install all necessary dependencies
+* Go to your folder and create ```.env``` file
+* Create a ```VITE_SERVER_URL``` variable by typing ```VITE_SERVER_URL=url to api that will get you date about your skins```
+* Now run the application using following command:
+```bash
+npm run dev
+```
+___
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## Tools, libraries used to build *SteamInvestments*
+1. [React JS](https://react.dev/ "React dev official website") - used for providing dynamic interface
+2. [Vite](https://vitejs.dev/ "Vite official website") - used for creating an enviroment and basic setup for the project
+3. [The Buff API](buff.163.com "The Buff Api") - used as an external API, from which application gets all movies and so on (you can also use my [other repo](https://github.com/MaksioPiksio/SteamInvestmentsServer "My Buff Api") 
+4. [TailwindCSS](https://tailwindcss.com/ "TailwindCSS official website") - used for building complex interfaces much easier and quicker than simple CSS
+5. [Chakra UI](https://chakra-ui.com/ "Chakra UI official website") - used for building components
+
+___
+
+## © 2023 | Build By
+# MaksioPiksio
