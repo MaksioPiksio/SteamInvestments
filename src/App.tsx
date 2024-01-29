@@ -110,8 +110,10 @@ function App() {
                 </TableContainer>
             </div>
 
-            <a href="https://www.youtube.com/watch?v=gMuDEDIPZ3c">
-                <img src="../Bob.png" alt="arrow-up"/>
+            <a
+                href="https://www.youtube.com/watch?v=gMuDEDIPZ3c"
+                className="flex items-center justify-center">
+                <img src="../Bob.png" alt="arrow-up" />
             </a>
         </>
     );
