@@ -113,7 +113,7 @@ function App() {
             <a
                 href="https://www.youtube.com/watch?v=gMuDEDIPZ3c"
                 className="flex items-center justify-center">
-                <img src="https://www.youtube.com/watch?v=gMuDEDIPZ3c" alt="arrow-up" />
+                <img src="public/Bob.png" alt="arrow-up" />
             </a>
         </>
     );
