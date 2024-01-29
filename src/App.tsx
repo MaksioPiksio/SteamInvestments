@@ -63,12 +63,6 @@ function App() {
         if (name === "icon" || name === "") return;
         const arr = [...prices];
 
-        // arr.sort((a, b) =>
-        //     name === "name"
-        //         ? a[name].localeCompare(b[name])
-        //         : parseFloat(a[name]) - parseFloat(b[name])
-        // );
-
         arr.sort((a, b) =>
             name === "name"
                 ? a[name].localeCompare(b[name])
