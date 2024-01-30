@@ -113,7 +113,7 @@ function App() {
             <a
                 href="https://www.youtube.com/watch?v=gMuDEDIPZ3c"
                 className="flex items-center justify-center text-white">
-                <img src="public/Bob.png" alt="Potwierdzenie że paryż pójdzie w góre" />
+                <img src="Bob.png" alt="Potwierdzenie że paryż pójdzie w góre" />
             </a>
         </>
     );
