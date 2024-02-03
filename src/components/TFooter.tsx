@@ -12,7 +12,7 @@ function TFooter({
     currency: CurrencyArrayType;
 }) {
     return (
-        <h1 className="text-center border-zinc-900 border-x-2 border-b-2">
+        <h1 className="text-center border-zinc-900 border-x-2 border-t-2">
             {profit != undefined ? (
                 profit > 0 ? (
                     <span className="text-green-500">
