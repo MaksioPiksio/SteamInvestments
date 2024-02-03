@@ -93,6 +93,12 @@ function App() {
             />
             <div className="flex justify-center text-white">
                 <TableContainer>
+                    <TFooter
+                        profit={profit}
+                        currencyPriceObject={currencyPriceObject}
+                        totalValue={totalValue}
+                        currency={currency}
+                    />
                     <Table className="max-w-lg">
                         <THeader
                             headers={headers}
@@ -101,12 +107,7 @@ function App() {
                         />
                         <TBody currency={currency} prices={prices} />
                     </Table>
-                    <TFooter
-                        profit={profit}
-                        currencyPriceObject={currencyPriceObject}
-                        totalValue={totalValue}
-                        currency={currency}
-                    />
+                    
                 </TableContainer>
             </div>
 
