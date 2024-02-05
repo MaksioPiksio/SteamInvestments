@@ -5,7 +5,7 @@ export const currencyArray: CurrencyArrayType2 = [" ¥", " $", " PLN"];
 export const currencyPriceObject: CurrencyPriceObjectType = {
     " ¥": 1,
     " $": 0.14,
-    " PLN": 0.55,
+    " PLN": 0.57,
 };
 
 export const skinData: skinDataType = [
