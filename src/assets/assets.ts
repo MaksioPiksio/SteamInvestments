@@ -21,8 +21,8 @@ export const headers: HeadersType = ["", "icon", "name", "buyPrice", "buffPrice"
 export const currencyArray: CurrencyArrayType2 = [" ¥", " $", " PLN"];
 export const currencyPriceObject: CurrencyPriceObjectType = {
     " ¥": 1,
-    " $": (await getCurrencyPrice(" $")) ?? 0.14,
-    " PLN": (await getCurrencyPrice(" PLN")) ?? 0.57,
+    " $": async (await getCurrencyPrice(" $")) ?? 0.14,
+    " PLN": async (await getCurrencyPrice(" PLN")) ?? 0.57,
 };
 
 export const skinData: skinDataType = [
