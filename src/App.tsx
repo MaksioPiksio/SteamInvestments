@@ -22,6 +22,7 @@ function App() {
             const response = await fetch(import.meta.env.VITE_SERVER_URL + skin); /*prettier-ignore */
             const data = await response.json();
             let buffPrice = data.data.items[0].price;
+            let profit = buffPrice * skinData[i].quantity - skinData[i].buyPrice * skinData[i].quantity; /*prettier-ignore */
             setPrices((prices) => [
                 ...prices,
                 {
@@ -33,11 +34,11 @@ function App() {
                     steamPrice: parseFloat(data.data.goods_infos[skin].steam_price_cny) /*prettier-ignore */,
                     buyPrice: skinData[i].buyPrice,
                     quantity: skinData[i].quantity,
-                    profit: parseFloat((buffPrice * skinData[i].quantity - skinData[i].buyPrice * skinData[i].quantity).toFixed(2)) /*prettier-ignore */,
+                    profit: parseFloat(profit.toFixed(2)) /*prettier-ignore */,
                     roi: parseFloat((((buffPrice - skinData[i].buyPrice) / skinData[i].buyPrice) * 100).toFixed(2)) /*prettier-ignore */,
                 },
             ]);
-            handleSetProfit(buffPrice * skinData[i].quantity - skinData[i].buyPrice * skinData[i].quantity); /*prettier-ignore */
+            handleSetProfit(profit); /*prettier-ignore */
             handleSetTotalValue(buffPrice * skinData[i].quantity);
         } catch (err) {
             addSkins(skin, i);
@@ -107,14 +108,16 @@ function App() {
                         />
                         <TBody currency={currency} prices={prices} />
                     </Table>
-                    
                 </TableContainer>
             </div>
 
             <a
                 href="https://www.youtube.com/watch?v=gMuDEDIPZ3c"
                 className="flex items-center justify-center text-white">
-                <img src="assets/bob.jpg" alt="Potwierdzenie że paryż pójdzie w góre" />
+                <img
+                    src="assets/bob.jpg"
+                    alt="Potwierdzenie że paryż pójdzie w góre"
+                />
             </a>
         </>
     );

@@ -20,10 +20,12 @@ function TBody({
                     key={idx}>
                     <Td>{idx + 1}</Td>
                     <Td>
-                        <img
-                            src={price.icon}
-                            className="scale-150"
-                            alt="case-img"></img>
+                        <a href={"https://buff.163.com/goods/" + price.skin}>
+                            <img
+                                src={price.icon}
+                                className="scale-150"
+                                alt="case-img"></img>
+                        </a>
                     </Td>
                     <Td>{price.name}</Td>
                     <Td>
