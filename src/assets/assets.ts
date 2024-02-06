@@ -1,26 +1,20 @@
 import { HeadersType  ,CurrencyPriceObjectType ,skinDataType, CurrencyArrayType2 } from "../types/assets"; //prettier-ignore
 const getCurrencyPrice = async (currency: string) => {
-    // let res = await fetch(
-    //     "http://api.nbp.pl/api/exchangerates/rates/a/cny?format=json"
-    // );
-    // let cnyCur: number = await res.json().then((data) => data.rates[0].mid);
+    let res = await fetch(
+        "http://api.nbp.pl/api/exchangerates/rates/a/cny?format=json"
+    );
+    let cnyCur: number = await res.json().then((data) => data.rates[0].mid);
 
-    // if (currency === " $") {
-    //     let usdRes = await fetch(
-    //         "http://api.nbp.pl/api/exchangerates/rates/a/usd?format=json"
-    //     );
-    //     let usdCur = await usdRes.json().then((usdCur) => usdCur.rates[0].mid);
-    //     return cnyCur / usdCur;
-    // }
-
-    // if (currency === " PLN") {
-    //     return cnyCur;
-    // }
     if (currency === " $") {
-        return 0.14;
+        let usdRes = await fetch(
+            "http://api.nbp.pl/api/exchangerates/rates/a/usd?format=json"
+        );
+        let usdCur = await usdRes.json().then((usdCur) => usdCur.rates[0].mid);
+        return cnyCur / usdCur;
     }
+
     if (currency === " PLN") {
-        return 0.67;
+        return cnyCur;
     }
 };
 export const headers: HeadersType = ["", "icon", "name", "buyPrice", "buffPrice", "steamPrice", "quantity", "profit", "roi"]; /*prettier-ignore */
