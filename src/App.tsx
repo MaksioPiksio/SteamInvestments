@@ -7,6 +7,7 @@ import TBody from "./components/TBody";
 import TFooter from "./components/TFooter";
 import { pricesType } from "./types/app";
 import { CurrencyArrayType } from "./types/assets";
+import { addSkins } from "./functions/functions";
 
 let flag = false;
 function App() {
@@ -17,36 +18,8 @@ function App() {
     const [currency, setCurrency] = useState<CurrencyArrayType>(" ¥");
     const toast = useToast();
 
-    const addSkins = async (skin: number, i: number) => {
-        try {
-            const response = await fetch(import.meta.env.VITE_SERVER_URL + skin); /*prettier-ignore */
-            const data = await response.json();
-            let buffPrice = data.data.items[0].price;
-            let profit = buffPrice * skinData[i].quantity - skinData[i].buyPrice * skinData[i].quantity; /*prettier-ignore */
-            setPrices((prices) => [
-                ...prices,
-                {
-                    index: prices.length + 1,
-                    name: data.data.goods_infos[skin].market_hash_name,
-                    skin: skin,
-                    icon: data.data.goods_infos[skin].icon_url,
-                    buffPrice: parseFloat(buffPrice),
-                    steamPrice: parseFloat(data.data.goods_infos[skin].steam_price_cny) /*prettier-ignore */,
-                    buyPrice: skinData[i].buyPrice,
-                    quantity: skinData[i].quantity,
-                    profit: parseFloat(profit.toFixed(2)) /*prettier-ignore */,
-                    roi: parseFloat((((buffPrice - skinData[i].buyPrice) / skinData[i].buyPrice) * 100).toFixed(2)) /*prettier-ignore */,
-                },
-            ]);
-            handleSetProfit(profit); /*prettier-ignore */
-            handleSetTotalValue(buffPrice * skinData[i].quantity);
-        } catch (err) {
-            addSkins(skin, i);
-        }
-    };
-
     useEffect(() => {
-        if (!flag) skinData.forEach((skin, i) => addSkins(skin.id, i));
+        if (!flag) skinData.forEach((skin, i) => addSkins(skin.id, i, setPrices, setProfit, setTotalValue));
         flag = true;
     }, []);
 
@@ -78,12 +51,6 @@ function App() {
         }
         setPrices(arr);
     };
-
-    // const handleSetProfit = (n: number) => setProfit((profit) => (parseFloat(profit) + parseFloat(n)).toFixed(2)); /*prettier-ignore */
-    // const handleSetTotalValue = (n: number) => setTotalValue((totalValue) => (parseFloat(totalValue) + parseFloat(n)).toFixed(2)); /*prettier-ignore */
-
-    const handleSetProfit = (n: number) => setProfit((profit: number) => parseFloat(profit.toString()) + parseFloat(n.toString())); /*prettier-ignore */
-    const handleSetTotalValue = (n: number) => setTotalValue((totalValue) => parseFloat(totalValue.toString()) + parseFloat(n.toString())); /*prettier-ignore */
 
     return (
         <>
