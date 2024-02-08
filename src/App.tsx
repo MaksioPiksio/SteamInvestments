@@ -33,24 +33,7 @@ function App() {
             });
     }, [prices]);
 
-    const handleSort = (name: string, prices: pricesType) => {
-        if (name === "icon" || name === "") return;
-        const arr = [...prices];
-
-        arr.sort((a, b) =>
-            name === "name"
-                ? a[name].localeCompare(b[name])
-                : parseFloat(String(a[name as keyof typeof a])) -
-                  parseFloat(String(b[name as keyof typeof b]))
-        );
-
-        setSelectedHeader(name);
-        if (selectedHeader === name) {
-            arr.reverse();
-            setSelectedHeader(name + 1);
-        }
-        setPrices(arr);
-    };
+    
 
     return (
         <>
@@ -70,9 +53,10 @@ function App() {
                     <Table className="max-w-lg">
                         <THeader
                             headers={headers}
-                            selectedHeader={selectedHeader}
-                            handleSort={handleSort}
                             prices={prices}
+                            setSelectedHeader={setSelectedHeader}
+                            selectedHeader={selectedHeader}
+                            setPrices={setPrices}
                         />
                         <TBody currency={currency} prices={prices} />
                     </Table>

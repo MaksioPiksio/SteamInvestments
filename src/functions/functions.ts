@@ -22,10 +22,29 @@ export const addSkins = async (skin: number, i: number, setPrices: React.Dispatc
                 profit: parseFloat(profit.toFixed(2)) /*prettier-ignore */,
                 roi: parseFloat((((buffPrice - skinData[i].buyPrice) / skinData[i].buyPrice) * 100).toFixed(2)) /*prettier-ignore */,
             },
-        ]);
-        setProfit((pro) => profit + pro); /*prettier-ignore */
+        ]);        
+        setProfit((pro) => profit + pro);
         setTotalValue((totalValue) => totalValue + buffPrice * skinData[i].quantity);
     } catch (err) {
         addSkins(skin, i, setPrices, setProfit, setTotalValue);
     }
+};
+
+export const handleSort = (name: string, prices: pricesType, setSelectedHeader: React.Dispatch<React.SetStateAction<string>>, selectedHeader: string, setPrices: React.Dispatch<React.SetStateAction<pricesType>>) => {
+    if (name === "icon" || name === "") return;
+    const arr = [...prices];
+
+    arr.sort((a, b) =>
+        name === "name"
+            ? a[name].localeCompare(b[name])
+            : parseFloat(String(a[name as keyof typeof a])) -
+              parseFloat(String(b[name as keyof typeof b]))
+    );
+
+    setSelectedHeader(name);
+    if (selectedHeader === name) {
+        arr.reverse();
+        setSelectedHeader(name + 1);
+    }
+    setPrices(arr);
 };

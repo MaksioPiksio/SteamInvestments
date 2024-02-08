@@ -1,18 +1,23 @@
 import { pricesType } from "../types/app";
 import { HeadersType} from "../types/assets"; //prettier-ignore
 import { Thead, Tr, Th } from "@chakra-ui/react";
+import { handleSort } from "../functions/functions";
+
+type Props = {
+    headers: HeadersType;
+    prices: pricesType
+    setSelectedHeader: React.Dispatch<React.SetStateAction<string>>
+    selectedHeader: string;
+    setPrices: React.Dispatch<React.SetStateAction<pricesType>>
+}
 
 function THeader({
     headers,
-    selectedHeader,
-    handleSort,
     prices,
-}: {
-    headers: HeadersType;
-    selectedHeader: string;
-    handleSort: (name: string, prices: pricesType) => void;
-    prices: pricesType
-}) {
+    setSelectedHeader,
+    selectedHeader,
+    setPrices,
+}: Props) {
     return (
         <Thead>
             <Tr className="border-2 border-zinc-900">
@@ -20,7 +25,7 @@ function THeader({
                     <Th
                         color={"white"}
                         key={idx}
-                        onClick={() => handleSort(name, prices)}
+                        onClick={() => handleSort(name, prices, setSelectedHeader, selectedHeader, setPrices)}
                         className={`cursor-pointer hover:bg-zinc-900 transition duration-200 ${
                             selectedHeader == name
                                 ? "bg-zinc-700"
