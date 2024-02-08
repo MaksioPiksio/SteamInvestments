@@ -31,9 +31,7 @@ function App() {
                 duration: 2000,
                 isClosable: true,
             });
-    }, [prices]);
-
-    
+    }, [prices]);    
 
     return (
         <>
@@ -53,10 +51,10 @@ function App() {
                     <Table className="max-w-lg">
                         <THeader
                             headers={headers}
-                            prices={prices}
                             setSelectedHeader={setSelectedHeader}
                             selectedHeader={selectedHeader}
                             setPrices={setPrices}
+                            prices={prices}
                         />
                         <TBody currency={currency} prices={prices} />
                     </Table>

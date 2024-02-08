@@ -4,19 +4,19 @@ import { Thead, Tr, Th } from "@chakra-ui/react";
 import { handleSort } from "../functions/functions";
 
 type Props = {
-    headers: HeadersType;
-    prices: pricesType
+    headers: HeadersType
     setSelectedHeader: React.Dispatch<React.SetStateAction<string>>
-    selectedHeader: string;
+    selectedHeader: string
     setPrices: React.Dispatch<React.SetStateAction<pricesType>>
+    prices: pricesType
 }
 
 function THeader({
     headers,
-    prices,
     setSelectedHeader,
     selectedHeader,
     setPrices,
+    prices,
 }: Props) {
     return (
         <Thead>
