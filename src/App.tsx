@@ -33,7 +33,7 @@ function App() {
             });
     }, [prices]);
 
-    const handleSort = (name: string) => {
+    const handleSort = (name: string, prices: pricesType) => {
         if (name === "icon" || name === "") return;
         const arr = [...prices];
 
@@ -72,6 +72,7 @@ function App() {
                             headers={headers}
                             selectedHeader={selectedHeader}
                             handleSort={handleSort}
+                            prices={prices}
                         />
                         <TBody currency={currency} prices={prices} />
                     </Table>
