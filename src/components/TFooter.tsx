@@ -13,7 +13,6 @@ function TFooter({
 }) {
     return (
         <h1 className="text-center border-zinc-900 border-x-2 border-t-2">
-            {profit != undefined ? (
                 profit > 0 ? (
                     <span className="text-green-500">
                         Profit:{" "}
@@ -27,9 +26,6 @@ function TFooter({
                         {currency}
                     </span>
                 )
-            ) : (
-                <span>Loading...</span>
-            )}
             {" ("}
             {((profit / totalValue) * 100).toFixed(2)}
             %)
