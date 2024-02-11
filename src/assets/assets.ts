@@ -383,7 +383,6 @@ export const skinData: skinDataType = [
     { id: 896642, buyPrice: 0.0075, quantity: 5 },
     { id: 896638, buyPrice: 0.045, quantity: 1 },
     { id: 911261, buyPrice: 0.0375, quantity: 1 },
-    { id: 894174, buyPrice: 0.01, quantity: 3 },
     { id: 911297, buyPrice: 0.02, quantity: 2 },
     { id: 894287, buyPrice: 0.1725, quantity: 1 },
     { id: 928316, buyPrice: 0.005, quantity: 7 },
