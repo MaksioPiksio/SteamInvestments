@@ -8,7 +8,6 @@ export const addSkins = async (skin: number, i: number, setPrices: React.Dispatc
         const data = await response.json();
         let buffPrice = data.data.items[0].price;
         let profit = buffPrice * skinData[i].quantity - skinData[i].buyPrice * skinData[i].quantity; /*prettier-ignore */
-        if( data.data.goods_infos[skin].market_hash_name.split(" ").splice(-4).join(' ') == "(Holo) | Paris 2023"){
         setPrices((prices) => [
             ...prices,
             {
@@ -25,7 +24,7 @@ export const addSkins = async (skin: number, i: number, setPrices: React.Dispatc
             },
         ]);        
         setProfit((pro) => profit + pro);
-        setTotalValue((totalValue) => totalValue + buffPrice * skinData[i].quantity);}
+        setTotalValue((totalValue) => totalValue + buffPrice * skinData[i].quantity);
     } catch (err) {
         addSkins(skin, i, setPrices, setProfit, setTotalValue);
     }
