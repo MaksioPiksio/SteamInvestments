@@ -8,6 +8,7 @@ export const addSkins = async (skin: number, i: number, setPrices: React.Dispatc
         const data = await response.json();
         let buffPrice = data.data.items[0].price;
         let profit = buffPrice * skinData[i].quantity - skinData[i].buyPrice * skinData[i].quantity; /*prettier-ignore */
+        console.log(data.data.goods_infos[skin].market_hash_name.split(" ").splice(-2).join(' ')) 
         setPrices((prices) => [
             ...prices,
             {
