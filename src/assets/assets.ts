@@ -51,7 +51,6 @@ export const skinData: skinDataType = [
     { id: 928110, buyPrice: 47.49, quantity: 2 },
     { id: 928175, buyPrice: 8.65, quantity: 2 },
     { id: 928086, buyPrice: 3.4, quantity: 2 },
-    { id: 928043, buyPrice: 8.19, quantity: 2 },
     { id: 928038, buyPrice: 9.67, quantity: 2 },
     { id: 928188, buyPrice: 13.5, quantity: 2 },
     { id: 928080, buyPrice: 5.52, quantity: 2 },
