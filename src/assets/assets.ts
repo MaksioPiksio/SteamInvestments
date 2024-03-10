@@ -27,6 +27,8 @@ export const currencyPriceObject: CurrencyPriceObjectType = {
 
 export const skinData: skinDataType = [
     { id: 871478, buyPrice: 120, quantity: 1 },
+    { id: 886981, buyPrice: 60, quantity: 1 },
+    { id: 774681, buyPrice: 20, quantity: 6 },
     { id: 35879, buyPrice: 243.6, quantity: 1 },
     { id: 921379, buyPrice: 2.8, quantity: 2 },
     { id: 886606, buyPrice: 2.93, quantity: 4 },
