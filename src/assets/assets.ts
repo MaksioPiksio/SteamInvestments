@@ -25,7 +25,7 @@ export const currencyPriceObject: CurrencyPriceObjectType = {
     " PLN": 0.57,
 };
 
-export const skinData: skinDataType = [
+export const skinData = [
     { id: 871478, buyPrice: 120, quantity: 1 },
     { id: "871196#tag_ids=10199510", buyPrice: 0, quantity: 1 },
     { id: 35879, buyPrice: 243.6, quantity: 1 },
